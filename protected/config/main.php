@@ -60,7 +60,7 @@
 				'showScriptName' => FALSE,
 			),
 			'db' => array(
-				'connectionString' => 'mysql:host=localhost;dbname=alex-shop',
+				'connectionString' => 'mysql:host=localhost;dbname=yii-catalog',
 				'username' => 'root',
 				'password' => '',
 				'emulatePrepare' => true,

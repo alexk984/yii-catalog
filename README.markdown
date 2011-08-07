@@ -1,5 +1,7 @@
-This is an onpen source project, representing goods catalog, developed on yii framework.
+This is an open source project, representing goods catalog, developed on yii framework.
 ---------------------
-If you want to run this project you need create
-1. Create folder /assets
-2. Create folder /protected/runtime
+If you want to run this project you need:
+
++ Create folder /assets
++ Create folder /protected/runtime
++ Create database yii-catalog and import data from yii-catalog.sql

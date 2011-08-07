@@ -1,6 +1,7 @@
 <?php
 if ($_SERVER['HTTP_HOST'] == 'yii-catalog') {
-    $yii = dirname(__FILE__) . '/../../yii/framework/YiiBase.php';
+    $yii = dirname(__FILE__) . '/../../yii/framework/yiiBase.php';
+    require_once($yii);
 
     class Yii extends YiiBase
     {
@@ -22,7 +23,7 @@ else {
     define('YII_DEBUG', false);
     $yii = dirname(__FILE__) . '/../framework/yii.php';
     $config = dirname(__FILE__) . '/protected/config/production.php';
+    require_once($yii);
 }
 
-require_once($yii);
 Yii::createWebApplication($config)->run();
