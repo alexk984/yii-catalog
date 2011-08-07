@@ -1,0 +1,12 @@
+<phpunit bootstrap="bootstrap.php"
+		colors="false"
+		convertErrorsToExceptions="true"
+		convertNoticesToExceptions="true"
+		convertWarningsToExceptions="true"
+		stopOnFailure="false">
+
+	<selenium>
+		<browser name="Opera" browser="*opera C:\Program Files (x86)\Opera\opera.exe" />
+	</selenium>
+
+</phpunit>

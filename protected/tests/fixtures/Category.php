@@ -1,0 +1,29 @@
+<?php
+
+return array(
+        array(
+                'id'=>'1',
+                'root'=>'1',
+                'lft'=>'1',
+                'rgt'=>'6',
+                'level'=>'1',
+                'name'=>'Computers',
+        ),
+        array(
+                'id'=>'2',
+                'root'=>'1',
+                'lft'=>'4',
+                'rgt'=>'5',
+                'level'=>'2',
+                'name'=>'Monitors',
+        ),
+        array(
+                'id'=>'3',
+                'root'=>'1',
+                'lft'=>'2',
+                'rgt'=>'3',
+                'level'=>'2',
+                'name'=>'Notebooks',
+        ),
+);
+?>

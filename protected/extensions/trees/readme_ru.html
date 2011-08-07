@@ -1,0 +1,357 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta charset="utf-8" />
+    <title>Nested Set
+ - yiiext</title>
+    <style type="text/css">
+    /* Meyer's reset */
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, font, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td {
+        margin: 0; padding: 0;
+        border: 0; outline: 0;
+        font-size: 100%;
+        vertical-align: baseline;
+        background: transparent;
+    }
+    body { line-height: 1; }
+    ol, ul { list-style: none; }
+    blockquote, q { quotes: none; }
+    blockquote:before, blockquote:after,
+    q:before, q:after { content: ''; content: none; }
+
+    /* remember to define focus styles! */
+    :focus { outline: 0; }
+
+    /* remember to highlight inserts somehow! */
+    ins { text-decoration: none; }
+    del { text-decoration: line-through; }
+
+    /* tables still need 'cellspacing="0"' in the markup */
+    table { border-collapse: collapse; border-spacing: 0; }
+
+/*
+yiiext CSS
+Alexander Makarov, sam@rmcreative.ru
+*/
+body {
+    font: normal 10pt Arial, Helvetica, sans-serif;
+    background: #fff;
+    color: #555;
+    text-align: center;
+}
+
+a, a:visited {
+    color: #306495;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #73471b;
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    font-family: Calibri, Helvetica, Arial, sans-serif;
+}
+
+h1 {
+    font-size: 1.6em;
+    margin: 1em 0 .5em;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin: 1.07em 0 .535em;
+}
+
+h3 {
+    font-size: 1.4em;
+    margin: 1.14em 0 .57em;
+}
+
+h4 {
+    font-size: 1.3em;
+    margin: 1.23em 0 .615em;
+}
+
+h5 {
+    font-size: 1.2em;
+    margin: 1.33em 0 .67em;
+}
+
+h6 {
+    font-size: 1.1em;
+    margin: 1.6em 0 .8em;
+}
+
+::selection {
+    background: #d3dfee;
+    color: #000;
+}
+
+::-moz-selection {
+    background: #d3dfee;
+    color: #000;
+}
+
+acronym, abbr {
+    cursor: help;
+}
+
+label {
+    cursor: pointer;
+}
+
+hr {
+    height: 1px;
+    color: #ccc;
+    background-color: #ccc;
+    border: none;
+}
+
+#content {
+    width: 980px;
+    margin: 0 auto;
+    text-align: left;
+
+    background: #fff;
+}
+
+/* guide content */
+div.image {
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -khtml-border-radius: 7px;
+    border-radius: 7px;
+    margin: 10px 0;
+    border: 3px solid #eee;
+    text-align: center;
+}
+
+div.image > p {
+    background: #eee;
+    margin: 0;
+    font-weight: bold;
+    display: block;
+}
+
+#content ul {
+    list-style: disc inside;
+}
+
+#content ol {
+    list-style: decimal inside;
+}
+
+#content li {
+    line-height: 160%;
+}
+
+#content ul li li {
+    list-style-type: circle;
+}
+
+#content ul, #content ol {
+    margin: 0 0 1em 2em;
+}
+
+#content ul p, #content ol p {
+    display: inline;
+}
+
+#content p {
+    line-height: 160%;
+    margin-bottom: 1em;
+}
+
+span.type {
+    float: left;
+    font-size: 1em;
+    padding-right: 0.5em;
+    font-weight: bold;
+}
+
+/* code */
+pre {
+    display: block;
+    padding: 1em;
+    background: #fcfcfc;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    font-family: Consolas, "Courier New", Courier, mono;
+    margin: 1em 0;
+    font-size: 10pt;
+    line-height: 130%;
+}
+
+code {
+    border-bottom: 1px dotted #ccc;
+    font-weight: bold;
+    color: #666;
+}
+
+/* --- code highlighting --- */
+
+/* html-code */
+.html-hl-brackets,
+.html-hl-reserved {
+    color: #0000e6;
+}
+
+.html-hl-var,
+.html-hl-code,
+.html-hl-quotes,
+.html-hl-string {
+    color: #009933;
+}
+
+/* php-code */
+.php-hl-inlinetags {
+    font-weight: bold;
+}
+
+.php-hl-comment {
+    color: #777;
+}
+
+.php-hl-quotes,
+.php-hl-string {
+    color: #009933;
+}
+
+.php-hl-var {
+    color: #6d3206;
+}
+
+.php-hl-reserved {
+    color: #00e;
+}
+
+/* css-code */
+.css-hl-identifier {
+    color: #007c00;
+    font-weight: bold;
+}
+
+.css-hl-reserved {
+    color: #0000e6;
+}
+
+/* css-sql */
+.sql-hl-reserved {
+    color: #0000e6;
+}
+
+.sql-hl-identifier {
+    color: #007c00;
+}
+
+.sql-hl-var {
+    color: #0000e6;
+}
+
+.sql-hl-quotes, .sql-hl-string {
+    color: #007c00;
+}
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>Nested Set</h1>
+
+<p>Поведение для моделей AR, позволяющее работать с деревом, хранящимся в виде
+вложенных множеств.</p>
+
+<h2>Установка и настройка</h2>
+
+<p>Создать необходимые поля в таблице БД (см. schema.sql).</p>
+
+<p>Сконфигурировать модель:</p>
+
+<div class="hl-code"><div class="php-hl-main"><pre><span class="php-hl-reserved">class</span> <span class="php-hl-identifier">Comment</span> <span class="php-hl-reserved">extends</span> <span class="php-hl-identifier">CActiveRecord</span> <span class="php-hl-brackets">{</span>
+    <span class="php-hl-reserved">public</span> <span class="php-hl-reserved">function</span> <span class="php-hl-identifier">behaviors</span><span class="php-hl-brackets">(</span><span class="php-hl-brackets">)</span><span class="php-hl-brackets">{</span>
+        <span class="php-hl-reserved">return</span> <span class="php-hl-reserved">array</span><span class="php-hl-brackets">(</span>
+            <span class="php-hl-quotes">'</span><span class="php-hl-string">tree</span><span class="php-hl-quotes">'</span><span class="php-hl-code"> =&gt; </span><span class="php-hl-reserved">array</span><span class="php-hl-brackets">(</span>
+                <span class="php-hl-quotes">'</span><span class="php-hl-string">class</span><span class="php-hl-quotes">'</span><span class="php-hl-code"> =&gt; </span><span class="php-hl-quotes">'</span><span class="php-hl-string">ext.yiiext.behaviors.model.trees.ENestedSetBehavior</span><span class="php-hl-quotes">'</span><span class="php-hl-code">,
+                </span><span class="php-hl-comment">//</span><span class="php-hl-comment"> хранить ли множество деревьев в одной таблице</span>
+                <span class="php-hl-quotes">'</span><span class="php-hl-string">hasManyRoots</span><span class="php-hl-quotes">'</span><span class="php-hl-code"> =&gt; </span><span class="php-hl-reserved">false</span><span class="php-hl-code">,
+                </span><span class="php-hl-comment">//</span><span class="php-hl-comment"> поле для хранения идентификатора дерева при $hasManyRoots=false; не используется</span>
+                <span class="php-hl-quotes">'</span><span class="php-hl-string">root</span><span class="php-hl-quotes">'</span><span class="php-hl-code"> =&gt; </span><span class="php-hl-quotes">'</span><span class="php-hl-string">root</span><span class="php-hl-quotes">'</span><span class="php-hl-code">,
+                </span><span class="php-hl-comment">//</span><span class="php-hl-comment"> обязательные поля для NS</span>
+                <span class="php-hl-quotes">'</span><span class="php-hl-string">left</span><span class="php-hl-quotes">'</span><span class="php-hl-code"> =&gt; </span><span class="php-hl-quotes">'</span><span class="php-hl-string">lft</span><span class="php-hl-quotes">'</span><span class="php-hl-code">,
+                </span><span class="php-hl-quotes">'</span><span class="php-hl-string">right</span><span class="php-hl-quotes">'</span><span class="php-hl-code"> =&gt; </span><span class="php-hl-quotes">'</span><span class="php-hl-string">rgt</span><span class="php-hl-quotes">'</span><span class="php-hl-code">,
+                </span><span class="php-hl-quotes">'</span><span class="php-hl-string">level</span><span class="php-hl-quotes">'</span><span class="php-hl-code"> =&gt; </span><span class="php-hl-quotes">'</span><span class="php-hl-string">level</span><span class="php-hl-quotes">'</span><span class="php-hl-code">,
+            </span><span class="php-hl-brackets">)</span><span class="php-hl-code">,
+        </span><span class="php-hl-brackets">)</span><span class="php-hl-code">;
+    </span><span class="php-hl-brackets">}</span>
+<span class="php-hl-brackets">}</span></pre></div></div>
+
+<h2>Использование</h2>
+
+<div class="hl-code"><div class="php-hl-main"><pre><span class="php-hl-comment">//</span><span class="php-hl-comment"> выбираем корень дерева</span>
+<span class="php-hl-var">$root</span><span class="php-hl-code">=</span><span class="php-hl-identifier">Comment</span><span class="php-hl-code">::</span><span class="php-hl-identifier">model</span><span class="php-hl-brackets">(</span><span class="php-hl-brackets">)</span><span class="php-hl-code">-&gt;</span><span class="php-hl-identifier">roots</span><span class="php-hl-brackets">(</span><span class="php-hl-brackets">)</span><span class="php-hl-code">-&gt;</span><span class="php-hl-identifier">findByPk</span><span class="php-hl-brackets">(</span><span class="php-hl-var">$pk</span><span class="php-hl-brackets">)</span><span class="php-hl-code">;
+</span><span class="php-hl-comment">//</span><span class="php-hl-comment"> получаем все узлы</span>
+<span class="php-hl-var">$comments</span><span class="php-hl-code">=</span><span class="php-hl-var">$root</span><span class="php-hl-code">-&gt;</span><span class="php-hl-identifier">descendants</span><span class="php-hl-brackets">(</span><span class="php-hl-brackets">)</span><span class="php-hl-code">-&gt;</span><span class="php-hl-identifier">findAll</span><span class="php-hl-brackets">(</span><span class="php-hl-brackets">)</span><span class="php-hl-code">;</span></pre></div></div>
+
+<h2>Ограничения</h2>
+
+<p>Поведение пока не умеет делать несколько изменяющих дерево операций за один запрос.
+Это связано с тем, что после какого-либо изменения дерево перестраивается и меняются
+значения <code>left</code> и <code>right</code>. Решением на данный момент является вызов <code>$model-&gt;refresh()</code>
+после обновления дерева для получения актуальных данных.</p>
+
+<h2>Краткое описание API</h2>
+
+<h3>Именовынные группы условий AR</h3>
+
+<ul>
+<li>descendants($depth=null) выбирать потомков</li>
+<li>children() выбирать прямых потомков</li>
+<li>ancestors($depth=null) выбирать предков</li>
+<li>roots() выбирать корни</li>
+</ul>
+
+<h3>Методы поиска</h3>
+
+<ul>
+<li>parent() родитель</li>
+<li>getPrevSibling() предыдущий сосед</li>
+<li>getNextSibling() следующий сосед</li>
+</ul>
+
+<h3>Информационные методы</h3>
+
+<ul>
+<li>isDescendantOf($subj) является ли потомком $subj</li>
+<li>isLeaf() является ли листом (узлом без детей)</li>
+<li>isRoot() является ли корнем</li>
+</ul>
+
+<h3>Методы действий</h3>
+
+<ul>
+<li>saveNode() или tree->save() сохранить узел</li>
+<li>deleteNode() или tree->delete() удалить узел</li>
+<li>insertBefore($target), insertAfter($target) вставить узел до или после $target</li>
+<li>append($target) добавить $target в конец узла</li>
+<li>appendTo($target) добавить узел в конец $target</li>
+<li>prepend($target) добавить $target в начало узла</li>
+<li>prependTo($target) добавить узел в начало $target</li>
+<li>moveBefore($target), moveAfter($target) переместить до или после $target</li>
+<li>moveAsFirst($target), moveAsLast($target) переместить в начало или конец $target</li>
+</ul>
+        <hr />
+        <p style="text-align: right;">© 2009 — 2010, <a href="http://code.google.com/p/yiiext/">yiiext team</a>.</p>        
+    </div>
+</body>
+</html>

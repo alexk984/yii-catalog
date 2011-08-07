@@ -1,0 +1,12 @@
+0.95
+----
+[+] Unit tests added (creocoder)
+[+] Incorrect usage of save() and delete() instead of behavior's saveNode() and deleteNode() is now detected (creocoder)
+
+0.90
+----
+[+] Moving a node to a different root is now supported (creocoder)
+
+0.85
+----
+[*] Initial public release (creocoder)
