@@ -2,75 +2,60 @@
 
 class BrandController extends CAdminController
 {
+    public $defaultAction = 'index';
+    public $layout = 'column1';
 
-    /**
-     * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-     * using two-column layout. See 'protected/views/layouts/column2.php'.
-     */
-    public $defaultAction = 'admin';
-
-    /**
-     * @return array action filters
-     */
-    public function filters()
+    public function actionIndex()
     {
-        return array(
-            'accessControl', // perform access control for CRUD operations
-        );
+        $model = new Brand('search');
+        $model->unsetAttributes(); // clear any default values
+        if (isset($_GET['Brand']))
+            $model->attributes = $_GET['Brand'];
+
+        $edit_model = new Brand;
+
+        $this->render('index', array(
+                                    'model' => $model, 'edit_model' => $edit_model
+                               ));
     }
 
-
-    /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     */
-    public function actionCreate()
-    {
-        $model = new Brand;
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (Yii::app()->request->isAjaxRequest) {
-            $model->attributes = $_POST['Brand'];
-            if (Yii::app()->params['server'] == CAlexHelper::DEVELOPMENT)
-                if ($model->save())
-                    echo 'success';
-            return;
-        }
-
-        $this->render('create', array(
-                                     'model' => $model,
-                                ));
-    }
-
-    /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        $this->render('update', array(
-                                     'model' => $model,
-                                ));
-    }
-
-    public function actionUpdateAjax()
+    public function actionAjax()
     {
         if (Yii::app()->request->isAjaxRequest) {
-            $model = $this->loadModel($_POST['Brand']['id']);
+            if (isset($_POST['Brand']['id']) && !empty($_POST['Brand']['id'])) {
+                $model = $this->loadModel($_POST['Brand']['id']);
+                $model->attributes = $_POST['Brand'];
 
-            $model->attributes = $_POST['Brand'];
-            if (Yii::app()->params['server'] == CAlexHelper::DEVELOPMENT)
-                if ($model->save())
-                    echo 'success';
+                if ($model->validate()) {
+                    if (Yii::app()->params['server'] == CAlexHelper::DEVELOPMENT || $_POST['Brand']['id'] > 60) {
+                        if ($model->save()) {
+                            $this->setNotice('Запись успешно обновлена');
+                            $model = new Brand();
+                        }
+                        else
+                            $this->setNotice('Fail');
+                    } else
+                        $this->setNotice('You cant edit data on this site');
+                }
+            } else {
+                $model = new Brand();
+                $model->attributes = $_POST['Brand'];
+
+                if ($model->validate()) {
+                    if ($model->save()) {
+                        $this->setNotice('Запись успешно добавлена');
+                        $model = new Brand();
+                    }
+                    else
+                        $this->setNotice('Fail');
+                }
+            }
+            $this->renderPartial('ajaxForm', array(
+                                                  'model' => $model,
+                                             ));
         }
+        else
+            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
     /**
@@ -93,26 +78,11 @@ class BrandController extends CAdminController
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
     }
 
-
-    /**
-     * Manages all models.
-     */
-    public function actionAdmin()
-    {
-        $model = new Brand('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Brand']))
-            $model->attributes = $_GET['Brand'];
-
-        $this->render('admin', array(
-                                    'model' => $model,
-                               ));
-    }
-
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
-     * @param integer the ID of the model to be loaded
+     * @param integer $id the ID of the model to be loaded
+     * @return Brand
      */
     public function loadModel($id)
     {
@@ -124,7 +94,7 @@ class BrandController extends CAdminController
 
     /**
      * Performs the AJAX validation.
-     * @param CModel the model to be validated
+     * @param CModel $model the model to be validated
      */
     protected function performAjaxValidation($model)
     {

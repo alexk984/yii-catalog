@@ -12,7 +12,6 @@
  */
 class Brand extends CActiveRecord
 {
-
     /**
      * Returns the static model of the specified AR class.
      * @return Brand the static model class
@@ -83,18 +82,18 @@ class Brand extends CActiveRecord
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('name', $this->name, true);
-        $criteria->order = 'name';
+        //$criteria->order = 'name';
 
         return new CActiveDataProvider(get_class($this), array(
                                                               'criteria' => $criteria,
-                                                              'pagination' => array('pageSize' => 30,),
+                                                              'pagination' => array('pageSize' => 15,),
                                                          ));
     }
 
     public function defaultScope()
     {
         return array(
-            'order' => 'name',
+            //'order' => 'name',
         );
     }
 
@@ -111,8 +110,8 @@ class Brand extends CActiveRecord
         foreach ($brands as $i => $brand)
             if ($brand->goodsCount == 0)
                 unset($brands[$i]);
-        
-        usort($brands,'self::cmp');
+
+        usort($brands, 'self::cmp');
 
         return $brands;
     }
