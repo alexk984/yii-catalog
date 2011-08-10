@@ -2,13 +2,36 @@
 
 class CategoryController extends CAdminController
 {
+    public $CQtreeGreedView = array(
+        'modelClassName' => 'Category', //название класса
+        'adminAction' => 'admin' //action, где выводится QTreeGridView.
+    );
 
-    /**
-     * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-     * using two-column layout. See 'protected/views/layouts/column2.php'.
-     */
     public $defaultAction = 'admin';
 
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                  'actions' => array('create', 'update', 'admin', 'delete', 'moveNode', 'makeRoot'),
+                  'users' => array('admin'),
+            ),
+            array('deny', // deny all users
+                  'users' => array('*'),
+            ),
+        );
+    }
+
+    public function actions()
+    {
+        return array(
+            'create' => 'ext.QTreeGridView.actions.Create',
+            'update' => 'ext.QTreeGridView.actions.Update',
+            'delete' => 'ext.QTreeGridView.actions.Delete',
+            'moveNode' => 'ext.QTreeGridView.actions.MoveNode',
+            'makeRoot' => 'ext.QTreeGridView.actions.MakeRoot',
+        );
+    }
 
     /**
      * Creates a new model.
@@ -61,7 +84,11 @@ class CategoryController extends CAdminController
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        $model->parent_id = $model->parent()->id;
+        if ($model->getParent() === null)
+            $model->parentId = null;
+        else
+            $model->parentId = $model->getParent()->id;
+        
         $this->render('update', array(
                                      'model' => $model,
                                 ));

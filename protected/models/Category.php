@@ -19,7 +19,7 @@
 class Category extends CActiveRecord
 {
 
-    public $parent_id;
+    public $parentId;
 
     /**
      * Returns the static model of the specified AR class.
@@ -47,7 +47,7 @@ class Category extends CActiveRecord
         // will receive user inputs.
         return array(
             array('name, alias', 'required'),
-            array('level, parent_id', 'numerical', 'integerOnly' => true),
+            array('level, parentId', 'numerical', 'integerOnly' => true),
             array('root, lft, rgt', 'length', 'max' => 10),
             array('name', 'length', 'max' => 250),
             // The following rule is used by search().
@@ -81,7 +81,7 @@ class Category extends CActiveRecord
             'rgt' => 'Rgt',
             'level' => 'Level',
             'name' => Yii::t('main-ui', 'Category name'),
-            'parent_id' => Yii::t('main-ui', 'Parent category'),
+            'parentId' => Yii::t('main-ui', 'Parent category'),
             'alias' => 'Урл'
         );
     }
@@ -101,7 +101,9 @@ class Category extends CActiveRecord
         // should not be searched.
 
         $criteria = new CDbCriteria;
-
+        $criteria->order = $this->tree->hasManyRoots
+                ? $this->tree->rootAttribute . ', ' . $this->tree->leftAttribute
+                : $this->tree->leftAttribute;
         $criteria->compare('id', $this->id, true);
         $criteria->compare('root', $this->root, true);
         $criteria->compare('lft', $this->lft, true);
@@ -126,16 +128,27 @@ class Category extends CActiveRecord
         return array(
             'tree' => array(
                 'class' => 'ext.trees.ENestedSetBehavior',
-                // хранить ли множество деревьев в одной таблице
-                'hasManyRoots' => true,
-                // поле для хранения идентификатора дерева при $hasManyRoots=false; не используется
-                'root' => 'root',
-                // обязательные поля для NS
-                'left' => 'lft',
-                'right' => 'rgt',
-                'level' => 'level',
+                'hasManyRoots'=>true,
+                'leftAttribute'=>'lft',
+                'rightAttribute'=>'rgt',
+                'levelAttribute'=>'level',
             ),
         );
+    }
+
+    /**
+     * Build tree-like array for display in DropDownList
+     * using in admin panel
+     * @static
+     * @param bool $canSelectNonLeaf can user select category that have children
+     * @return string[]
+     */
+    public static function TreeArray($canSelectNonLeaf = true)
+    {
+        if ($canSelectNonLeaf)
+            return self::TreeArrayLeafCanSelected();
+        else
+            return self::TreeArrayLeafCannotSelected();
     }
 
     /**
@@ -145,7 +158,7 @@ class Category extends CActiveRecord
      * @static
      * @return string[]
      */
-    public static function GetArrayForDropDownList()
+    public static function TreeArrayLeafCannotSelected()
     {
         $roots = Category::model()->roots()->findAll();
         $res = array();
@@ -153,7 +166,7 @@ class Category extends CActiveRecord
             if ($root->isLeaf())
                 $res[$root->id] = $root->name;
             else
-                $res[$root->name] = Category::GetChildren($root);
+                $res[$root->name] = Category::GetChildrenForTreeArrayLeafCannotSelected($root);
         }
 
         return $res;
@@ -166,7 +179,7 @@ class Category extends CActiveRecord
      * @param Category $elem the category for which builds array
      * @return string[]
      */
-    private static function GetChildren($elem)
+    private static function GetChildrenForTreeArrayLeafCannotSelected($elem)
     {
         $res = array();
         $roots = $elem->children()->findAll();
@@ -174,7 +187,7 @@ class Category extends CActiveRecord
             if ($root->isLeaf())
                 $res[$root->id] = $root->name;
             else
-                $res[$root->name] = Category::GetChildren($root);
+                $res[$root->name] = Category::GetChildrenForTreeArrayLeafCannotSelected($root);
         }
         return $res;
     }
@@ -186,14 +199,14 @@ class Category extends CActiveRecord
      * @static
      * @return string[]
      */
-    public static function GetArrayForDropDownList2()
+    public static function TreeArrayLeafCanSelected()
     {
         $roots = Category::model()->roots()->findAll();
         $res = array();
         foreach ($roots as $root) {
             $res[$root->id] = $root->GetStringName();
             if (!$root->isLeaf())
-                $res = $res + Category::GetChildren2($root, 1);
+                $res = $res + Category::GetChildrenForTreeArrayLeafCanSelected($root, 1);
         }
 
         return $res;
@@ -207,14 +220,14 @@ class Category extends CActiveRecord
      * @param integer $i nesting level
      * @return string[]
      */
-    private static function GetChildren2($elem, $i)
+    private static function GetChildrenForTreeArrayLeafCanSelected($elem, $i)
     {
         $res = array();
         $roots = $elem->children()->findAll();
         foreach ($roots as $root) {
             $res[$root->id] = $root->GetStringName();
             if (!$root->isLeaf())
-                $res = $res + Category::GetChildren2($root, $i + 1);
+                $res = $res + Category::GetChildrenForTreeArrayLeafCanSelected($root, $i + 1);
         }
         return $res;
     }

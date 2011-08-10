@@ -26,7 +26,7 @@
         <div class="row">
                 <?php CHtml::label('Category', 'category_id_select'); ?>
                 <?php
-                echo CHtml::dropDownList(null, 'category_id', array('0' => Yii::t('main-ui', 'Корневой раздел')) + Category::GetArrayForDropDownList2(), array(
+                echo CHtml::dropDownList(null, 'category_id', Category::TreeArray(false), array(
                         'encode' => false,
                         'onchange' => 'GetCategoryGroups(this.value, \'' . $this->createUrl('group/catgroups2') . '\')',
                         'id' => 'category_id_select',

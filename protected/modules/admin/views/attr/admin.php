@@ -24,16 +24,15 @@
 				'value' => '$data->attrGroup->category->name'
 			),
 			array(
-				'name' => 'attr_group_name',
+				'name' => 'attr_group_id',
 				'type' => 'raw',
-				//'filter' => CHtml::listData(Category::model()->findAll(), 'id', 'name'),
 				'value' => '$data->attrGroup->name'
 			),
 			array(
 				'name' => 'is_main',
 				'type' => 'boolean',
 				'filter' => array('1' => 'Да', '0'=>'Нет'),
-				'header' => 'важная'
+				'header' => 'в краткое описание'
 			),
 			array(
 				'name' => 'type',

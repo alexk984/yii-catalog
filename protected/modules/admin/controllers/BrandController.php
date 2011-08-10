@@ -67,7 +67,7 @@ class BrandController extends CAdminController
     {
         if (Yii::app()->request->isPostRequest) {
             // we only allow deletion via POST request
-            if (Yii::app()->params['server'] == CAlexHelper::DEVELOPMENT)
+            if (Yii::app()->params['server'] == CAlexHelper::DEVELOPMENT || $id > 60)
                 $this->loadModel($id)->delete();
 
             // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser

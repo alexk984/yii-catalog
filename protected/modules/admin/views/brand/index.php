@@ -16,7 +16,7 @@ $this->menu=array(
 	'model'=>$edit_model,
 )); ?>
 </div>
-
+<p>Редактирование работает для элементов с id > 60</p>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'brand-grid',
 	'dataProvider'=>$model->search(),

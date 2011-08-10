@@ -14,13 +14,14 @@
         ?>
 
         <div class="row">
-                <?php echo $form->labelEx($model, 'parent_id'); ?>
+                <?php echo $form->labelEx($model, 'parentId'); ?>
                 <?php
-                echo $form->dropDownList($model, 'parent_id', array('0'=>Yii::t('main-ui', 'Корневой раздел')) + Category::GetArrayForDropDownList2(), array(
+                echo $form->dropDownList($model, 'parentId', Category::TreeArray(), array(
                         'encode'=>false,
+                        'empty'=>Yii::t('main-ui', 'Корневой раздел')
                 ));
                 ?>
-                <?php echo $form->error($model, 'parent_id'); ?>
+                <?php echo $form->error($model, 'parentId'); ?>
         </div>
 
         <div class="row">

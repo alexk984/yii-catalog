@@ -48,7 +48,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                 array(
                         'name' => 'category_id',
                         'type' => 'raw',
-                        'filter' => Category::GetArrayForDropDownList(),
+                        'filter' => Category::TreeArray(false),
                         'value' => '$data->category->name',
                 ),
                 array(

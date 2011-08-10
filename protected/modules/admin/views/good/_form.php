@@ -35,7 +35,7 @@
                 <?php echo $form->labelEx($model, 'category_id'); ?>
                 <?php
                 if (isset($model->id)) $id = $model->id;else $id = '0';
-                echo $form->dropDownList($model, 'category_id', array('0' => Yii::t('main-ui', 'Корневой раздел')) + Category::GetArrayForDropDownList2(), array(
+                echo $form->dropDownList($model, 'category_id', Category::TreeArray(false), array(
                         'encode' => false,
                         'ajax' => array(
                                 'type'=>'POST',
