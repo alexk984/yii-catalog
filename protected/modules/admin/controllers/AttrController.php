@@ -128,16 +128,16 @@ class AttrController extends CAdminController
         }
     }
 
-    public function actionGroupAttr()
+    public function actionGroupAttributes()
     {
-        if (isset($_POST['group_id'])) {
-            $criteria = new CDbCriteria;
-            $criteria->compare('attr_group_id', $_POST['group_id'], true);
-            $criteria->order = 'pos';
-            $groups = Attr::model()->findAll($criteria);
+        if (isset($_POST['group_id']) && !empty($_POST['group_id'])) {
+            $attributes = Attr::model()->findAll(array(
+                                                      'condition' => 'attr_group_id=' . $_POST['group_id'],
+                                                      'order' => 'pos'
+                                                 ));
 
-            foreach ($groups as $group) {
-                echo $group->name . '<br/>';
+            foreach ($attributes as $attribute) {
+                echo $attribute->pos . ' ' . $attribute->name . '<br/>';
             }
         }
     }

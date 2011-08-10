@@ -8,8 +8,6 @@ class CAdminController extends Controller
     {
         return array(
             array('allow',
-                  'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete'
-                  , 'updateajax', 'featurelist', 'catgroups', 'catgroups2', 'groupattr', 'ajax'),
                   'users' => array('admin'),
             ),
             array('deny', // deny all users
@@ -28,13 +26,11 @@ class CAdminController extends Controller
         );
     }
 
-    // флеш-нотис пользователю
     public function setNotice($message)
     {
         return Yii::app()->user->setFlash('notice', $message);
     }
 
-    // флеш-ошибка пользователю
     public function setError($message)
     {
         return Yii::app()->user->setFlash('error', $message);

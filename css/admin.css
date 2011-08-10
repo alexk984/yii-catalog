@@ -1,6 +1,15 @@
+label {
+    display: block !important;
+}
 #brand-grid{
     width: 600px;
 }
 #brand-grid_c0{
     width: 50px;
+}
+.inline-label{
+    display: inline !important;
+}
+.invis{
+    display: none;
 }

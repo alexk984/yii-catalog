@@ -101,4 +101,16 @@ class AttrGroup extends CActiveRecord
                                                          ));
     }
 
+    public function GetGroupNames()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->distinct = true;
+        $criteria->select = "name";
+        $rows = AttrGroup::model()->findAll($criteria);
+        $res = array();
+        foreach ($rows as $row)
+            $res [] = $row->name;
+        return $res;
+    }
+
 }

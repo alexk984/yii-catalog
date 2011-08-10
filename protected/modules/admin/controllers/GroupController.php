@@ -57,27 +57,33 @@ class GroupController extends CAdminController
                                 ));
     }
 
-    public function actionCatGroups()
+    public function actionCategoryGroupsList()
+    {
+        echo $this->GetCategoryGroupsList($_POST['cat_id']);
+    }
+
+    public function GetCategoryGroupsList($category_id){
+        $res = '';
+        if (isset($category_id)) {
+            $groups = AttrGroup::model()->findAll(array(
+                                                       'condition' => 'category_id=' . $category_id,
+                                                       'order' => 'pos'));
+
+            foreach ($groups as $group) {
+                $res.= $group->pos . " " . $group->name . '<br/>';
+            }
+        }
+        return $res;
+    }
+
+    public function actionCategoryGroupsOptions()
     {
         if (isset($_POST['cat_id'])) {
             $groups = AttrGroup::model()->findAll(array(
                                                        'condition' => 'category_id=' . $_POST['cat_id'],
-                                                       'order' => 'pos'));
-
-            foreach ($groups as $group) {
-                echo $group->pos . " " . $group->name . '<br/>';
-            }
-        }
-    }
-
-    public function actionCatGroups2()
-    {
-        if (isset($_POST['cat_id'])) {
-            $criteria = new CDbCriteria;
-            $criteria->compare('category_id', $_POST['cat_id'], true);
-            $criteria->order = 'pos';
-            $groups = AttrGroup::model()->findAll($criteria);
-
+                                                       'order' => 'pos'
+                                                  ));
+            echo '<option value="">выберите группу характеристик...</option>';
             foreach ($groups as $group) {
                 echo '<option value="' . $group->id . '">' . $group->name . '</option>';
             }

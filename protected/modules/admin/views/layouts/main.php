@@ -19,11 +19,6 @@
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.notice.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/admin.css"/>
-    <style type="text/css">
-        label {
-            display: block !important;
-        }
-    </style>
 
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
     <?php Yii::app()->clientScript->registerScriptFile('/js/adminHelper.js'); ?>
@@ -49,8 +44,8 @@
                                                                 array('label' => 'Категории', 'url' => array('/admin/category/')),
                                                                 array('label' => 'Брэнды', 'url' => array('/admin/brand/')),
                                                                 array('label' => 'Товары', 'url' => array('/admin/good/')),
-                                                                array('label' => 'Группы Характеристик', 'url' => array('/admin/group/')),
                                                                 array('label' => 'Характеристики товаров', 'url' => array('/admin/attr/')),
+                                                                array('label' => 'Группы Характеристик', 'url' => array('/admin/group/')),
                                                                 array('url' => Yii::app()->getModule('user')->logoutUrl, 'label' => Yii::app()->getModule('user')->t("Logout") . ' (' . Yii::app()->user->name . ')', 'visible' => !Yii::app()->user->isGuest),
                                                             ),
                                                        ));

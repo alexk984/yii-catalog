@@ -9,19 +9,6 @@ class CategoryController extends CAdminController
 
     public $defaultAction = 'admin';
 
-    public function accessRules()
-    {
-        return array(
-            array('allow',
-                  'actions' => array('create', 'update', 'admin', 'delete', 'moveNode', 'makeRoot'),
-                  'users' => array('admin'),
-            ),
-            array('deny', // deny all users
-                  'users' => array('*'),
-            ),
-        );
-    }
-
     public function actions()
     {
         return array(

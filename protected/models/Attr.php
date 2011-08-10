@@ -83,9 +83,9 @@ class Attr extends CActiveRecord {
 				'attr_group_id' => 'Группа характеристик',
 				'is_main' => 'Отображать в кратком описании',
 				'type' => 'Тип',
-				'pos' => 'Позиция',
+				'pos' => 'Позиция в группе',
 				'template' => 'Шаблон',
-				'global_pos' => 'Глобальная позиция',
+				'global_pos' => 'Позиция в кратком описании',
 				'filter'=>'Осуществлять поиск по характеристике',
 		);
 	}
@@ -115,7 +115,7 @@ class Attr extends CActiveRecord {
 
 		return new CActiveDataProvider(get_class($this), array(
 				'criteria' => $criteria,
-				'pagination' => array('pageSize' => 30),
+				'pagination' => array('pageSize' => 15),
 		));
 	}
 
