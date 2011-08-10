@@ -20,7 +20,7 @@
                         'encode' => false,
                         'ajax' => array(
                                 'type' => 'POST',
-                                'url' => $this->createUrl('attrgroup/catgroups'),
+                                'url' => $this->createUrl('group/catgroups'),
                                 'data' => 'js:{"cat_id":this.value}',
                                 'cache' => false,
                                 'success' => 'function(data){
@@ -78,7 +78,7 @@
                                 $("#cat-groups").append($("#attr-group-name").val()+"<br>");}',
                         ));
                 else
-                        echo CHtml::ajaxButton('Обновить', $this->createUrl('attrgroup/updateajax'), array(
+                        echo CHtml::ajaxButton('Обновить', $this->createUrl('group/updateajax'), array(
                                 'data' => 'js:{"cat_id":$("#AttrGroup_category_id").val(), "name":$("#attr-group-name").val(), 
                                         "pos":$("#AttrGroup_pos").val(), "id":$("#AttrGroup_id").val()}',
                                 'success' => 'function(html){

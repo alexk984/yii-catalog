@@ -33,7 +33,7 @@
                         'type'=>'POST',
                 )); ?>
 
-                <div id="cat-result"></div>
+                <span id="cat-result"></span>
         </div>
 
 <?php $this->endWidget(); ?>

@@ -21,7 +21,7 @@ class ParseController extends Controller
     {
         $cat_id = 1;
         Yii::import('ext.phpQuery.phpQuery.phpQuery');
-        $this->ParseAllPages('/guru.xml?hid=91052&CMD=-RR=9,0,0,0-VIS=201E2-CAT_ID=106905-BPOS=530-EXC=1-PG=10&greed_mode=false', $cat_id);
+        $this->ParseAllPages('/guru.xml?hid=91052&CMD=-RR=9,0,0,0-VIS=201E2-CAT_ID=106905-BPOS=1-EXC=1-PG=10&greed_mode=false', $cat_id);
     }
 
     public function ParseAllPages($page_url, $cat_id)
@@ -47,7 +47,7 @@ class ParseController extends Controller
             $good_urls [] = (pq($li)->attr('href'));
 
         foreach ($good_urls as $good_url) {
-            sleep(1);
+            sleep(4);
             $this->ParseOne($good_url, $cat_id);
         }
     }
@@ -81,7 +81,7 @@ class ParseController extends Controller
         $good->name = $name;
         $good->price = $price;
         $good->date = date("Y-m-d");
-        $good->SetBrandFromName($brand);
+        $this->SetBrandFromName($good, $brand);
         $good->save();
 
         $main_pic = $document->find('#model-pictures span.b-model-pictures__big a')->attr('href');
@@ -118,11 +118,11 @@ class ParseController extends Controller
                             $val = trim(str_replace($attr->template, '', $val));
 
                         if ($attr->type == '1')
-                            $good->SetStringFeatureValue($attr, $val);
+                            $this->SetStringFeatureValue($good, $attr, $val);
                         elseif ($attr->type == '3')
-                            $good->SetIntFeatureValue($attr->id, $val);
+                            $this->SetIntFeatureValue($good, $attr->id, $val);
                         elseif ($attr->type == '2')
-                            $good->SetBoolFeatureValue($attr->id, $val);
+                            $this->SetBoolFeatureValue($good, $attr->id, $val);
                     }
                 }
             }
@@ -174,4 +174,100 @@ class ParseController extends Controller
         }
     }
 
+
+    /**
+     * Set brand for good, if not exist create it
+     * @param $good
+     * @param string $brand_name
+     *
+     */
+    public function SetBrandFromName($good, $brand_name)
+    {
+        $brands = Brand::model()->cache(60)->findAll();
+        $exist = false;
+        foreach ($brands as $brand) {
+            if (strtolower($brand->name) == strtolower($brand_name)) {
+                $exist = true;
+                $good->brand_id = $brand->id;
+            }
+        }
+        if (!$exist) {
+            $brand = new Brand();
+            $brand->name = $brand_name;
+            $brand->save();
+        }
+    }
+
+    /**
+     * Set good attribute value for string type attribute
+     * @param $good
+     * @param Attr $attr attribute
+     * @param string $val value
+     * @return bool
+     */
+    public function SetStringFeatureValue($good, $attr, $val)
+    {
+        foreach ($attr->attrValues as $exist_value) {
+            if (strtolower($exist_value->value) == strtolower($val)) {
+                $this->SetGoodAttribute($good, $attr->id, $exist_value->id);
+                return;
+            }
+        }
+        //if value not exist, create it
+        $attrVal = new AttrValue;
+        $attrVal->attr_id = $attr->id;
+        $attrVal->value = $val;
+        $attrVal->save();
+        $this->SetGoodAttribute($good, $attr->id, $attrVal->id);
+        return;
+    }
+
+    /**
+     * Create good attribute value for string type attribute
+     * @param $good
+     * @param integer $attr_id
+     * @param integer $val_id
+     */
+    public function SetGoodAttribute($good, $attr_id, $val_id)
+    {
+        $attr_val = new GoodAttrVal();
+        $attr_val->attr_id = $attr_id;
+        $attr_val->attr_value_id = $val_id;
+        $attr_val->good_id = $good->id;
+        $attr_val->save();
+    }
+
+    /**
+     * Create good attribute value for integer type attribute
+     * @param $good
+     * @param integer $attr_id
+     * @param integer $val
+     */
+    public function SetIntFeatureValue($good, $attr_id, $val)
+    {
+        $attr_val = new GoodAttrVal();
+        $attr_val->attr_id = $attr_id;
+        $attr_val->good_id = $good->id;
+        $attr_val->value = $val;
+        $attr_val->save();
+    }
+
+    /**
+     * Create good attribute value for boolean type attribute
+     * @param $good
+     * @param integer $attr_id
+     * @param string $val
+     */
+    public function SetBoolFeatureValue($good, $attr_id, $val)
+    {
+        if (strpos($val, "да") !== false || strpos($val, 'есть') !== false)
+            $val = 1;
+        else
+            $val = 0;
+        $attr_val = new GoodAttrVal();
+        $attr_val->attr_id = $attr_id;
+        $attr_val->good_id = $good->id;
+        $attr_val->value = $val;
+        $attr_val->save();
+    }
 }

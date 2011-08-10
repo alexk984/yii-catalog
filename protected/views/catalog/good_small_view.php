@@ -8,7 +8,7 @@
         else
             $img = CHtml::image('/images/xs_empty.jpg');
 
-        echo CHtml::link($img, $this->createUrl('good', array('id' => $good->id)));
+        echo CHtml::link($img, $this->createUrl('good/view', array('id' => $good->id)));
         ?>
     </div>
     <div class="good_desc">

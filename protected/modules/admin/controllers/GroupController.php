@@ -60,14 +60,11 @@ class GroupController extends CAdminController
     public function actionCatGroups()
     {
         if (isset($_POST['cat_id'])) {
-            $criteria = new CDbCriteria;
-            $criteria->compare('category_id', $_POST['cat_id'], true);
-            $criteria->order = 'pos';
-            $groups = AttrGroup::model()->findAll($criteria);
+            $groups = AttrGroup::model()->findAll(array(
+                                                       'condition' => 'category_id=' . $_POST['cat_id'],
+                                                       'order' => 'pos'));
 
             foreach ($groups as $group) {
-                if ($group->pos == 10)
-                    echo '<br>';
                 echo $group->pos . " " . $group->name . '<br/>';
             }
         }

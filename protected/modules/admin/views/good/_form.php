@@ -40,7 +40,6 @@
                         'ajax' => array(
                                 'type'=>'POST',
                                 'url' => $this->createUrl('good/featurelist'),
-                                // 'data' => 'js:{"socket_id":$("#socket").val(), "brand_id":$("#brand").val()}',
                                 'data' => 'js:{"id":'.$id.', "cat_id":this.value}',
                                 'success'=>'function(html){
                                         $("#good-features").html(html);
