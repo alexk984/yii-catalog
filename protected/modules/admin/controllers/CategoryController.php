@@ -54,18 +54,18 @@ class CategoryController extends CAdminController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-//    public function actionUpdate($id)
-//    {
-//        $model = $this->loadModel($id);
-//
-//        // Uncomment the following line if AJAX validation is needed
-//        // $this->performAjaxValidation($model);
-//
-//        $model->parent_id = $model->parent()->id;
-//        $this->render('update', array(
-//                                     'model' => $model,
-//                                ));
-//    }
+    public function actionUpdate($id)
+    {
+        $model = $this->loadModel($id);
+
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        $model->parent_id = $model->parent()->id;
+        $this->render('update', array(
+                                     'model' => $model,
+                                ));
+    }
 
     public function actionUpdateAjax()
     {
