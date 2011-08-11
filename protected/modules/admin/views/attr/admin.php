@@ -37,8 +37,8 @@ $this->widget(
              ),
              array(
                  'name' => 'is_main',
-                 'type' => 'boolean',
                  'filter' => array('1' => 'Да', '0' => 'Нет'),
+                 'value' => '$data->is_main == 1 ? "Да" : "Нет"',
                  'header' => 'в краткое описание'
              ),
              array(
@@ -50,8 +50,8 @@ $this->widget(
              'pos',
              array(
                  'name' => 'filter',
-                 'type' => 'boolean',
                  'filter' => array('1' => 'Да', '0' => 'Нет'),
+                 'value' => '$data->filter == 1 ? "Да" : "Нет"',
                  'header' => 'в фильтр'
              ),
              'global_pos',

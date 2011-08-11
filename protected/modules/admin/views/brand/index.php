@@ -3,13 +3,16 @@ $this->breadcrumbs=array(
 	'Управление Брэндами'
 );
 
-$this->menu=array(
-	array('label'=>'Добавить брэнд', 'url'=>array('create')),
-);
-
 ?>
+<script type="text/javascript">
+    function EditBrand(link){
+        $("#Brand_id").val(link.parent('td').parent('tr').find('td').html());
+        $("#Brand_name").val(link.parent('td').parent('tr').find('td').next('td').html());
+        $("#edit-brand-button").val("Изменить");
+        $("#cancel-edit").removeClass("invis");
+    }
+</script>
 <h1>Управление Брэндами</h1>
-<?php Yii::app()->clientScript->registerScriptFile('/js/jquery.notice.js'); ?>
 
 <div class="form" id="ajaxform">
     <?php $this->renderPartial('ajaxForm',array(

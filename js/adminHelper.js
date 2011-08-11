@@ -5,14 +5,6 @@
  * Time: 14:34
  */
 
-function EditBrand(link){
-    $("#Brand_id").val(link.parent('td').parent('tr').find('td').html());
-    $("#Brand_name").val(link.parent('td').parent('tr').find('td').next('td').html());
-    $("#edit-brand-button").val("Изменить");
-    $("#cancel-edit").removeClass("invis");
-}
-
-
 /*
  * Send new user choice, then recieve object where define what need to change
  * and change selects
