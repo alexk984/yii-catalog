@@ -112,23 +112,9 @@ class Brand extends CActiveRecord
             if ($brand->goodsCount == 0)
                 unset($brands[$i]);
 
-        usort($brands, 'self::cmp');
+        usort($brands, 'CAlexHelper::CompareGoodsCount');
 
         return $brands;
-    }
-
-    /**
-     * Compare function for goodsCount
-     * @param $a Brand
-     * @param $b Brand
-     * @return int compare result
-     */
-    function cmp($a, $b)
-    {
-        if ($a->goodsCount == $b->goodsCount) {
-            return 0;
-        }
-        return ($a->goodsCount > $b->goodsCount) ? -1 : 1;
     }
 
 }

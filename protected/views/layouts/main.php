@@ -50,7 +50,6 @@
 $("#loader").ajaxStop(function(){
    $(this).hide();
 });');
-            $cs->registerScriptFile('/js/jquery.notice.js');
             ?>
         </div>
     </div>

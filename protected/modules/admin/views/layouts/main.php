@@ -21,7 +21,10 @@
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/admin.css"/>
 
     <title><?php echo CHtml::encode($this->pageTitle); ?></title>
-    <?php Yii::app()->clientScript->registerScriptFile('/js/adminHelper.js'); ?>
+    <?php Yii::app()->clientScript->registerScriptFile('/js/adminHelper.js');
+    Yii::app()->clientScript->registerScriptFile('/js/jquery.notice.js');
+    ?>
+
 </head>
 
 <body>

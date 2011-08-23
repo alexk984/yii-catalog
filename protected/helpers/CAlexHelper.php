@@ -70,4 +70,20 @@ class CAlexHelper
             }
         }
     }
+
+    /**
+     * Compare function for goodsCount
+     * @param $a Brand
+     * @param $b Brand
+     * @return int compare result
+     */
+    public static function CompareGoodsCount($a, $b)
+    {
+        if ($a->goodsCount == $b->goodsCount) {
+            return 0;
+        }
+        return ($a->goodsCount > $b->goodsCount) ? -1 : 1;
+    }
+
+
 }
