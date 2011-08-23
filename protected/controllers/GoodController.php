@@ -26,6 +26,9 @@ class GoodController extends Controller
                                          ),
                                          'goodImages'
                                     ))->findByPk($id, '', array('order' => 'attrGroup.pos, attr.pos'));
+        if ($good === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         $this->render('good', array(
                                    'good' => $good,
                               ));
