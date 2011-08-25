@@ -33,7 +33,7 @@ class CatalogController extends Controller
                                                      ),
                                                      'attrGroups.attrs' => array(
                                                          'select' => 'name,type,template',
-                                                         'condition' => ' filter=1 '
+                                                         //'condition' => ' filter=1 '
                                                      ),
                                                      'attrGroups.attrs.attrValues' => array(
                                                          'select' => 'value',

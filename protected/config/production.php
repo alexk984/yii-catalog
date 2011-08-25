@@ -17,8 +17,8 @@ return CMap::mergeArray(
                  'schemaCachingDuration' => '360000'
              ),
              'cache' => array(
-//                 'class' => 'system.caching.CFileCache',
-                    'class' => 'system.caching.CDummyCache',
+                 'class' => 'system.caching.CFileCache',
+//                    'class' => 'system.caching.CDummyCache',
              ),
          ),
          'params' => array(

@@ -97,12 +97,12 @@
 				'params' => array('directory' => '/opt/local/bin'),
 			),
 			'cache' => array(
-				'class' => 'system.caching.CMemCache',
+//				'class' => 'system.caching.CMemCache',
 				//'class' => 'ext.redis.CRedisCache',
 //				'servers' => array(
 //					array('host' => '127.0.0.1', 'port' => 11211, 'weight' => 60),
 //				),
-//				'class' => 'system.caching.CDummyCache',
+				'class' => 'system.caching.CDummyCache',
 			),
 		),
 		// application-level parameters that can be accessed
