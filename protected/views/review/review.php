@@ -11,9 +11,9 @@
 		<div class="data">
 			<div class="grade-title">
 				<div class="user">
-					<span class="b-user"><b class="b-user"><?= $user ?></b></span>&nbsp;
+					<span class="b-user"><b class="b-user"><?php echo $user ?></b></span>&nbsp;
 				</div>
-				<div class="date"><?= $date ?></div>
+				<div class="date"><?php echo $date ?></div>
 				<div class="clearfix"></div>
 			</div>
 			<div class="b-lr-container">
@@ -35,21 +35,21 @@
 							'id' => 'good-rating',
 						)
 					));*/ ?>
-					<span class="grade-label"><?= $review->rating0->desc ?></span>
+					<span class="grade-label"><?php echo $review->rating0->desc ?></span>
 					<div class="fix"></div>
 				</div>
-				<div class="right">Опыт использования: <?= $review->usingExperience0->desc ?></div>
+				<div class="right">Опыт использования: <?php echo $review->usingExperience0->desc ?></div>
 			</div>
 			<p class="user-opinion">
 				<b>Достоинства: </b>
-			<?= $review->positive; ?>
+			<?php echo $review->positive; ?>
 				</p>
 				<p class="user-opinion">
 					<b>Недостатки: </b>
-			<?= $review->negative; ?>
+			<?php echo $review->negative; ?>
 				<p>
 					<b>Комментарий: </b>
-			<?= $review->comment; ?>
+			<?php echo $review->comment; ?>
 		</p>
 	</div>
 	<div class="line"></div>

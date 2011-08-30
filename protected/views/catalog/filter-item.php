@@ -1,12 +1,12 @@
-<li class="filter fclose" id="<?= 'attrs-' . $attr->id ?>">
+<li class="filter fclose" id="<?php echo 'attrs-' . $attr->id ?>">
 	<div class="name-text">
-		<span onclick="ShowAttrList('#attrs-<?= $attr->id ?>');" class="fname">
+		<span onclick="ShowAttrList('#attrs-<?php echo $attr->id ?>');" class="fname">
 			<i>&nbsp;</i><?php
 	echo $attr->name;
 ?>
 		</span>
 	</div>
-	<div class="filter-content" id="<?= 'attrs-' . $attr->id ?>">
+	<div class="filter-content" id="<?php echo 'attrs-' . $attr->id ?>">
 		<?php
 			if ($attr->type == '1') {
 				foreach ($attr->attrValues as $attrValue) {

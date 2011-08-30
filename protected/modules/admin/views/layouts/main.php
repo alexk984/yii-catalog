@@ -69,8 +69,8 @@
         All Rights Reserved.<br/>
         <?php echo Yii::powered(); ?>
         <div>
-            Отработало за <?= sprintf('%0.5f', Yii::getLogger()->getExecutionTime()) ?> с.
-            Скушано памяти: <?= round(memory_get_peak_usage() / (1024 * 1024), 2) . "MB" ?>
+            Отработало за <?php echo sprintf('%0.5f', Yii::getLogger()->getExecutionTime()) ?> с.
+            Скушано памяти: <?php echo round(memory_get_peak_usage() / (1024 * 1024), 2) . "MB" ?>
         </div>
     </div>
     <!-- footer -->

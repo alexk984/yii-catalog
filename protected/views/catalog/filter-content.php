@@ -5,7 +5,7 @@
 				'onchange' => 'SendSearchReg()',
 			));
 ?>
-		<label for="<?= $id ?>">
-			<?= $checkbox ?>
-			<span><?= $attrValue->value ?></span><br>
+		<label for="<?php echo $id ?>">
+			<?php echo $checkbox ?>
+			<span><?php echo $attrValue->value ?></span><br>
 		</label>

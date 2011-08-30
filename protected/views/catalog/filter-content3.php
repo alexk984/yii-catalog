@@ -5,9 +5,9 @@
 	if (!empty($attr->template)) $measurement = $attr->template;
 ?>
 <span class="inputs"><nobr>&nbsp;&nbsp;от&nbsp;
-		<?= $input1 ?>
+		<?php echo $input1 ?>
 		<span>&nbsp;до&nbsp;
-			<?= $input2 ?>
+			<?php echo $input2 ?>
 		</span>
-		&nbsp;<span><?= $measurement ?></span></nobr>
+		&nbsp;<span><?php echo $measurement ?></span></nobr>
 </span>

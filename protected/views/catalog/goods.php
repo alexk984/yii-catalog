@@ -62,9 +62,9 @@
 					<li class="filter">
 						<div class="name-text">Цена:</div>
 						<span class="inputs"><nobr>&nbsp;&nbsp;от&nbsp;
-				<?= CHtml::textField('price[min]', '', array('onchange' => 'SendSearchReg()', 'size' => '10')); ?>
+				<?php echo CHtml::textField('price[min]', '', array('onchange' => 'SendSearchReg()', 'size' => '10')); ?>
 					<span>&nbsp;до&nbsp;
-                <?= CHtml::textField('price[max]', '', array('onchange' => 'SendSearchReg()', 'size' => '10')); ?>
+                <?php echo CHtml::textField('price[max]', '', array('onchange' => 'SendSearchReg()', 'size' => '10')); ?>
 					</span>
 					&nbsp;руб.</nobr>
 			</span>

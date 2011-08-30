@@ -1,8 +1,8 @@
 <?php if($this->beginCache('cat-list-'.$model->id, array('duration'=>60))) { ?>
 
 <div class="supcat guru">
-		<a href="<?= $this->createUrl('catalog/view', array('name' => $model->alias)) ?>">
-			<img height="16" border="0" width="16" src="/images/duru.gif" title="Каталог товаров" alt="*!*"><?= $model->name ?></a>
+		<a href="<?php echo $this->createUrl('catalog/view', array('name' => $model->alias)) ?>">
+			<img height="16" border="0" width="16" src="/images/duru.gif" title="Каталог товаров" alt="*!*"><?php echo $model->name ?></a>
 		<span style="font-size: 87%;"><?php
 	$cat = Category::model()->findByPk($model->id);
 	if ($cat->isLeaf()) {

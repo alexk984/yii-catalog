@@ -5,7 +5,7 @@
         'sql'=>'SELECT count(id) FROM rating WHERE good_id='.$good->id),
 	))) { ?>
 		<div class="good-description">
-			<h1><?= $good->name ?></h1>
+			<h1><?php echo $good->name ?></h1>
 			<div class="photo"><?php
 		echo $good->GetGoodImagesForGallery('s');
 		Yii::import('ext.jqPrettyPhoto');
@@ -24,7 +24,7 @@
                 <?php if ($good->price == 0): ?>
                 <span class="b-prices__num">Нет в продаже</span>
                 <?php else: ?>
-				<span class="b-prices__num"><?= CAlexHelper::GetMoneyFormat($good->price) ?></span>
+				<span class="b-prices__num"><?php echo CAlexHelper::GetMoneyFormat($good->price) ?></span>
 				<span class="b-prices__currency">руб.</span>
                 <?php endif ?>
 			</div>
