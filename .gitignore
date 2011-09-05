@@ -2,3 +2,4 @@
 /assets/*
 /protected/runtime/*
 /images/goods/*
+/config/production.php
