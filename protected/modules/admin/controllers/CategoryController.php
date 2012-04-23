@@ -33,7 +33,7 @@ class CategoryController extends CAdminController
 
         if (Yii::app()->params['server'] == CAlexHelper::DEVELOPMENT)
             if (Yii::app()->request->isAjaxRequest) {
-                if ($_POST['Category']['parent_id'] == '0') {
+                if ($_POST['Category']['parentId'] == '') {
                     $model = new Category();
                     $model->name = $_POST['Category']['name'];
                     $model->alias = $_POST['Category']['alias'];
@@ -41,7 +41,7 @@ class CategoryController extends CAdminController
                     if ($model->saveNode())
                         echo 'success';
                 } else {
-                    $parent = $this->loadModel($_POST['Category']['parent_id']);
+                    $parent = $this->loadModel($_POST['Category']['parentId']);
                     $model = new Category();
                     $model->name = $_POST['Category']['name'];
                     $model->alias = $_POST['Category']['alias'];
@@ -86,7 +86,7 @@ class CategoryController extends CAdminController
         if (Yii::app()->params['server'] == CAlexHelper::DEVELOPMENT)
             if (Yii::app()->request->isAjaxRequest) {
                 $model = $this->loadModel($_POST['Category']['id']);
-                if ($_POST['Category']['parent_id'] == $model->parent()->id) {
+                if ($_POST['Category']['parentId'] == $model->parent->id) {
                     $model->name = $_POST['Category']['name'];
                     $model->alias = $_POST['Category']['alias'];
 
@@ -97,7 +97,7 @@ class CategoryController extends CAdminController
                 } else {
                     $model->deleteNode();
                     $model->refresh();
-                    $parent = $this->loadModel($_POST['Category']['parent_id']);
+                    $parent = $this->loadModel($_POST['Category']['parentId']);
 
                     if ($parent->append($model)) {
                         $model->refresh();
