@@ -14,7 +14,7 @@ $positions = Yii::app()->shoppingCart->getPositions();
 foreach ($positions as $position) {
     echo '<tr>';
     echo '<td class="good-name">' . $position->GetGoodImage('xs') .
-         CHtml::link($position->name, $this->createUrl('site/good', array('id' => $position->id)))
+         CHtml::link($position->name, $this->createUrl('good/view', array('id' => $position->id)))
          . '</td>';
     echo '<td><span id="one-price-' . $position->id . '">' . CAlexHelper::GetMoneyFormat($position->getPrice()) . '</span> руб.</td>';
     echo '<td>' . CHtml::textField('good-quantity-' . $position->id, $position->getQuantity(), array(
